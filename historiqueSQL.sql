@@ -41,7 +41,13 @@ CREATE TABLE EventToCharacter (
     FOREIGN KEY (CharacterID) REFERENCES `CHARACTER`(id),
     FOREIGN KEY (EventID) REFERENCES EVENT(id)
 );
-
+CREATE TABLE UserToReport (
+    UserID int NOT NULL,
+    ReportID int,
+    PRIMARY KEY (UserID, ReportID),
+    FOREIGN KEY (UserID) REFERENCES USER(id),
+    FOREIGN KEY (ReportID) REFERENCES REPORT(id)
+);
 
 
 
