@@ -12,9 +12,9 @@ class ComposerStaticInitca2a40341a54540552d70c40058a2ce3
     );
 
     public static $prefixLengthsPsr4 = array (
-        'Y' => 
+        'a' => 
         array (
-            'Yangfu\\FilRougeProject\\' => 23,
+            'app\\FilRougeProject\\model\\' => 26,
         ),
         'P' => 
         array (
@@ -27,7 +27,7 @@ class ComposerStaticInitca2a40341a54540552d70c40058a2ce3
     );
 
     public static $prefixDirsPsr4 = array (
-        'Yangfu\\FilRougeProject\\' => 
+        'app\\FilRougeProject\\model\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/model',
         ),

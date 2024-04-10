@@ -3,7 +3,7 @@
     "description": "guildFileRouge",
     "autoload": {
         "psr-4": {
-            "Yangfu\\FilRougeProject\\": "src/model"
+            "app\\FilRougeProject\\model\\": "src/model"
         }
     },
     "authors": [
