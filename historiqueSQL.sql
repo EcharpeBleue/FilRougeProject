@@ -41,6 +41,7 @@ CREATE TABLE EventToCharacter (
     FOREIGN KEY (CharacterID) REFERENCES `CHARACTER`(id),
     FOREIGN KEY (EventID) REFERENCES EVENT(id)
 );
+<<<<<<< HEAD
 CREATE TABLE UserToReport (
     UserID int NOT NULL,
     ReportID int,
@@ -48,6 +49,9 @@ CREATE TABLE UserToReport (
     FOREIGN KEY (UserID) REFERENCES USER(id),
     FOREIGN KEY (ReportID) REFERENCES REPORT(id)
 );
+=======
+
+>>>>>>> brancheSQLdebut
 
 
 
