@@ -4,12 +4,19 @@ namespace app\FilRougeProject\model;
 
 
 Class Personnage {
-    private $evenement;
+    private int $_id;
+    private Evenement $evenement;
     private int $_niveau;
     private string $_equipement;
-    public function __construct(Evenement $evenement,int $niveau, string $equipement){
+
+    public function __construct(int $id ,Evenement $evenement,int $niveau, string $equipement){
         $this->_niveau = $niveau;
         $this->_equipement = $equipement;
+        $this->_id = $id;
+    }
+
+    public function getId():int {
+        return $this->_id;
     }
 
     public function getNiveau():int {
@@ -30,7 +37,7 @@ Class Personnage {
 
     public function demanderEvenement() {
        
-        $this->evenement->demarrer();
+        $this->_evenement->demarrer();
     }
 
 }

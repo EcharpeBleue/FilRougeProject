@@ -1,15 +1,19 @@
 <?php
 declare(strict_types=1);
+
 namespace app\FilRougeProject\model;
+
 class Api_key{
+    private int $_idApi;
     private string $_intitule;
     private int $_idUtilisateur;
     private string $_avecSesPersos;
 
-    public function __construct(string $intitule, int $idUtilisateur, string $avecSesPersos){
+    public function __construct(int $idApi,string $intitule, int $idUtilisateur, string $avecSesPersos){
         $this->_intitule = $intitule;
         $this->_idUtilisateur = $idUtilisateur;
         $this->_avecSesPersos = $avecSesPersos;
+        $this->_idApi = $idApi;
     }
 
     public function getIntitule():string{
@@ -23,6 +27,9 @@ class Api_key{
     }
 
 
+    public function getIdApi():int {
+        return $this->_idApi;
+    }
 
 
     public function getAvecSesPersos():string {
