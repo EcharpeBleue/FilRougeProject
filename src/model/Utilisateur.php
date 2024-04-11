@@ -25,8 +25,7 @@ class Utilisateur{
         $this->_evenements = $evenements;
         $this->_denonces = $denonces;
         $this->_denonciations = $denonciations;
-       
-       
+    
     }
     public function getId():int
     {

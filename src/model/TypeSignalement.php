@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace app\guild\model;
-class Type_signalement {
+class TypeSignalement {
     private int $_id;
     private string $_intitule;
 

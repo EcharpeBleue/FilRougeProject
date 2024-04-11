@@ -6,14 +6,14 @@ class Zone
     private int $_id;
     private string $_intitule;
     private string $_rang;
-    private TypeZone $_zonesType;
+    private TypeZone $_typeZone;
 
-    public function __construct(int $id, string $intitule, string $rang, TypeZone $zonesType = new TypeZone())
+    public function __construct(int $id, string $intitule, string $rang, TypeZone $typeZone)
     {
         $this->_id = $id;
         $this->_intitule = $intitule;
         $this->_rang = $rang;
-        $this->_zonesType = $zonesType;
+        $this->_typeZone = $typeZone;
     }
 
     public function setIntitule(string $intitule):void
@@ -36,8 +36,13 @@ class Zone
     {
         return $this->_rang;
     }
-    public function getZonesTypes():TypeZone
+    // get et set²
+    public function getTypeZone():TypeZone
     {
-        return $this->_zonesType;
+        return $this->_typeZone;
+    }
+    public function setTypeZone(TypeZone $typeZone):void
+    {
+        $this->_typeZone = $typeZone;
     }
 }

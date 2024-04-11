@@ -25,4 +25,12 @@ class TypeZone
     {
         return $this->_intitule;
     }
+    public function getZones():ZoneCollection
+    {
+        return $this->_zones;
+    }
+    public function addZone(Zone $zone):void
+    {
+         $this->_zones[]= $zone;
+    }
 }
