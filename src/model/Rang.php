@@ -7,7 +7,7 @@ class Rang{
     private string $_description;
     private UtilisateurCollection $_utilisateurs;
     private EvenementCollection $_evenements;
-    public function __construct(int $id = 0, string $description = 'Nouveau Menbre', string $intitule = 'noob', UtilisateurCollection $utilisateurs = new UtilisateurCollection(), EvenementCollection $evenements = new EvenementCollection()) {
+    public function __construct(int $id = 0, string $description = 'Nouveau Membre', string $intitule = 'noob', UtilisateurCollection $utilisateurs = new UtilisateurCollection(), EvenementCollection $evenements = new EvenementCollection()) {
         $this->_id= $id;
         $this->_intitule = $intitule;
         $this->_description = $description;  
