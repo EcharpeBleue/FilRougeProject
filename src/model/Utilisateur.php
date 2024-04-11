@@ -1,5 +1,6 @@
 <?php
-namespace app\Guilde\model;
+declare(strict_types=1);
+namespace app\guild\model;
 class Utilisateur{
     private int $_idUtilisateur;
     private string $_pseudo;
@@ -10,18 +11,15 @@ class Utilisateur{
         $this->_idUtilisateur = $id;
         $this->_pseudo = $pseudo;
         $this->_mail = $mail;
-        $this->_motDePasse = $motDePasse
+        $this->_motDePasse = $motDePasse;
        
        
     }
-    public function getUtilisateurId():int
+    public function getId():int
     {
         return $this->_idUtilisateur;
     }
-    public function setUtilisateurId(int $intitule)
-    {
-        $this->_intituleSignalement= $intitule;
-    }
+
     public function getSignalementId():int
     {
         return $this->_id;

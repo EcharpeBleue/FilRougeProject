@@ -1,6 +1,7 @@
 <?php
-namespace app\Guilde\model;
-class Quizz{
+declare(strict_types=1);
+namespace app\guild\model;
+class Signalement{
     private int $_idSignalement;
     private string $_intituleSignalement;
     private string $_dateSignalement;

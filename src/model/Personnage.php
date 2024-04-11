@@ -1,15 +1,13 @@
 <?php
 declare(strict_types=1);
 namespace app\guild\model;
-
-
 Class Personnage {
     private int $_id;
-    private Evenement $evenement;
+    private EvenementCollection $evenements;
     private int $_niveau;
     private string $_equipement;
 
-    public function __construct(int $id ,Evenement $evenement,int $niveau, string $equipement){
+    public function __construct(int $id ,Evenement $evenements,int $niveau, string $equipement){
         $this->_niveau = $niveau;
         $this->_equipement = $equipement;
         $this->_id = $id;

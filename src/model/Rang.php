@@ -1,5 +1,6 @@
 <?php
-namespace app\Guilde\model;
+declare(strict_types=1);
+namespace app\guild\model;
 class Rang{
     private int $_idRang;
     private string $_intituleRang;
@@ -22,7 +23,7 @@ class Rang{
     }
     public function setRangIntitule(UtilisateurCollection $intitule)
     {
-        $this->_intituleSignalement= $intitule;
+        $this->_intituleRang= $intitule;
     }
 
     public function setRang(UtilisateurCollection $rang)
