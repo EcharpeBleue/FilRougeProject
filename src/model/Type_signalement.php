@@ -2,28 +2,22 @@
 declare(strict_types=1);
 namespace app\guild\model;
 class Type_signalement {
-    private Liste_Blanche $verification;
-    private int $_idTypeEvenement;
-    private string $_institule;
+    private int $_id;
+    private string $_intitule;
 
-    public function __construct(Liste_Blanche $verification,int $idTypeEvenement,string $_institule){
+    public function __construct(int $id=0,string $intitule){
         $this->_intitule = $intitule;
-        $this->_idTypeEvenement = $idTypeEvenement;
+        $this->_id = $id;
     }
 
-    public function getIdTypeEvenement():int {
-        return $this->_idTypeEvenement;
+    public function getId():int {
+        return $this->_id;
     }
     public function getIntitule():string{
         return $this->_intitule; 
     }
 
-    public function setIntitule():string{
+    public function setIntitule(string $intitule):string{
         return $this->_intitule = $intitule; 
     }
-
-    public function verificationPerso(){
-        return $this->verification->verifer();
-    }
-
 }

@@ -3,14 +3,17 @@ declare(strict_types=1);
 namespace app\guild\model;
 Class Personnage {
     private int $_id;
-    private EvenementCollection $evenements;
+    private EvenementCollection $_evenements;
     private int $_niveau;
     private string $_equipement;
+    private Utilisateur $_utilisateur;
 
-    public function __construct(int $id ,Evenement $evenements,int $niveau, string $equipement){
+    public function __construct(int $id =0 ,EvenementCollection $evenements = new EvenementCollection(),int $niveau, string $equipement, Utilisateur $utilisateur){
         $this->_niveau = $niveau;
         $this->_equipement = $equipement;
         $this->_id = $id;
+        $this->_evenements = $evenements;
+        $this->_utilisateur = $utilisateur;
     }
 
     public function getId():int {
@@ -33,9 +36,13 @@ Class Personnage {
         $this->_equipement = $equipement;
     }
 
-    public function demanderEvenement() {
+    public function getEvenements():EvenementCollection {
        
-        $this->_evenement->demarrer();
+        return $this->_evenements;
+    }
+    public function addEvenement(Evenement $evenement)
+    {
+        $this->_evenements[]=$evenement;
     }
 
 }
