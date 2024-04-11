@@ -1,8 +1,10 @@
 {
-    "name": "jpa/fil-rouge-project",
+
+    "name": "group-3/guild",
+    "description": "guildFileRouge",
     "autoload": {
         "psr-4": {
-            "Jpa\\FilRougeProject\\": "src/"
+            "app\\guild\\model\\": "src/model"
         }
     },
     "authors": [
@@ -11,5 +13,8 @@
             "email": "zawiczrczarny@gmail.com"
         }
     ],
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^11.1"
+    }
 }

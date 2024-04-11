@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
+namespace app\guild\model;
 class Prerequis
 {
     private int $_id;

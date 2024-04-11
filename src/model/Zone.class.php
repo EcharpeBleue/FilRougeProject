@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-
+namespace app\guild\model;
 class Zone
 {
     private int $_id;
