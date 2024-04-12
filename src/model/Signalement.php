@@ -33,7 +33,7 @@ class Signalement{
     {
         return $this->_dateSignalement;
     }
-    public function addUtilisateur(Utilisateur $utilisateur)
+    public function setUtilisateur(Utilisateur $utilisateur)
     {
         $this->_utilisateurs[]= $utilisateur;
     }
@@ -58,32 +58,32 @@ class Signalement{
        
     // }
    
-    public static function create (Signalement $signalement,Utilisateur $utilisateur):int
+    public static function create (Signalement $intitule,Signalement $date,Utilisateur $utilisateur,TypeSignalement $typeSignalement):int
     {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (:varchar,id_2) values (:intitule,:id_2);");
-        $statement->execute(['text'=>$signalement->getIntitule(),'id_2'=>$utilisateur->getId()]);
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,date,id_2,id_3) values (:intitule,:date,:id_2:id_3);");
+        $statement->execute(['intitule'=>$intitule->getIntitule(),'date'=>$date->getDateSignalement(),'id_2'=>$utilisateur->getId(), ]);
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
-    public static function read(int $id):?Signalement{
+    public static function read(Signalement $id):?Signalement{
         $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
         $statement->execute(['id'=>$id]);
-        if ($row = $statement->fetch())
-        {
-            $question = new Signalement(id:$row['id'],text:$row['text']);
-            $question->setQuiz(Quizz::read($row['numQuiz']));
-            return $question;
-        }
+        // if ($row = $statement->fetch())
+        // {
+        //     // $signalement = new Signalement(id:$row['id'],intitule:$row['intitule']);
+        //     $signalement->setUtilisateur(Utilisateur::read($row['id_2']));
+        //     return $signalement;
+        // }
         return null;
     }
-    public static function update(Question $question)
+    public static function update(Signalement $signalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE question set text=:text, numQuiz =:numQuiz WHERE id =:id');
-        $statement->execute(['text'=>$question->getText(),'numQuiz'=>$question->getQuiz()->getId(),'id'=>$question->getId()]);
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMET set intitule=:intitule, id_2 =:id_2 WHERE id =:id');
+        $statement->execute(['text'=>$signalement->getIntitule(),'id_2'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
     }
-    public static function delete(Question $question)
+    public static function delete(Signalement $signalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM question WHERE id =:id');
-        $statement->execute(['id'=>$question->getId()]);
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM SIGNALEMENT WHERE id =:id');
+        $statement->execute(['id'=>$signalement->getId()]);
     }
 
    
