@@ -47,4 +47,10 @@ class Evenement
     {
         return $this->_description;
     }
+    public static function create (Evenement $evenement,Utilisateur $utilisateur):int
+    {
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO EVENEMENT (date,intitule,id_2,id_3) values (:setDate,:setTexte,:);");
+        $statement->execute(['text'=>$evenement->getTitre(),'numQuiz'=>$utilisateur->getId()]);
+        return (int)Database::getInstance()->getConnexion()->lastInsertId();
+    }
 }
