@@ -1,5 +1,5 @@
 <?php
-namespace app\build\model;
+namespace app\guild\model;
 
 class Database
 {

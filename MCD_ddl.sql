@@ -1,4 +1,3 @@
-
 drop database if exists GuildeDB;
 create database GuildeDB;
 use GuildeDB;
