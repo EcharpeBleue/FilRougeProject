@@ -1,20 +1,18 @@
 <?php
 declare(strict_types=1);
 
-
-
 use PHPUnit\Framework\TestCase;
-use app\FilRougeProject\model\Api_key; // Importez la classe Api_key
+use app\guild\model\Apikey; // Importez la classe Apikey
 
-class Api_keyTest extends TestCase {
+class ApikeyTest extends TestCase {
 
     public function test_1() {
-        $api_key = new Api_key();
+        $api_key = new Apikey();
         $this->assertSame($api_key->getIntitule());
     }
     
     public function test_2() {
-        $api_key = new Api_key('Guilde en PHP');
+        $api_key = new Apikey('Guilde en PHP');
         $this->assertSame('oki', $api_key->getTitle()); 
     }
 }
