@@ -30,6 +30,7 @@ Class Personnage {
 
     public function setNiveau($niveau):void {
        $this->_niveau = $niveau;
+
     }
     
     public function setEquipement($equipement):void {
@@ -44,5 +45,9 @@ Class Personnage {
     {
         $this->_evenements[]=$evenement;
     }
+
+  public function demander(){
+    $this->_evenements->participer();
+  }
 
 }
