@@ -47,5 +47,4 @@ class Evenement
     {
         return $this->_description;
     }
-    
 }
