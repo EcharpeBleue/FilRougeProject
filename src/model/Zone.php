@@ -13,7 +13,7 @@ class Zone
         $this->_id = $id;
         $this->_intitule = $intitule;
         $this->_rang = $rang;
-        $this->_zonesType = $zonesType;
+        $this->_typeZone = $typeZone;
     }
 
     public function setIntitule(string $intitule):void
