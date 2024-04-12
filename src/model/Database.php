@@ -8,7 +8,7 @@ class Database
 
     private function __construct()
     {
-        $this->_connexion = new \PDO('mysql:host=mysql-server;dbname=GuildeDB', 'db_user', 'password');
+        $this->_connexion = new \PDO('mysql:host=mysql-server;dbname=GuildeDB', 'db_user', 'example');
     }
 
     public static function getInstance()
