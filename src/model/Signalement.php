@@ -58,7 +58,33 @@ class Signalement{
        
     // }
    
-    
+    public static function create (Signalement $signalement,Utilisateur $utilisateur):int
+    {
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (:varchar,id_2) values (:intitule,:id_2);");
+        $statement->execute(['text'=>$signalement->getIntitule(),'id_2'=>$utilisateur->getId()]);
+        return (int)Database::getInstance()->getConnexion()->lastInsertId();
+    }
+    public static function read(int $id):?Signalement{
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
+        $statement->execute(['id'=>$id]);
+        if ($row = $statement->fetch())
+        {
+            $question = new Signalement(id:$row['id'],text:$row['text']);
+            $question->setQuiz(Quizz::read($row['numQuiz']));
+            return $question;
+        }
+        return null;
+    }
+    public static function update(Question $question)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE question set text=:text, numQuiz =:numQuiz WHERE id =:id');
+        $statement->execute(['text'=>$question->getText(),'numQuiz'=>$question->getQuiz()->getId(),'id'=>$question->getId()]);
+    }
+    public static function delete(Question $question)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM question WHERE id =:id');
+        $statement->execute(['id'=>$question->getId()]);
+    }
 
    
     
