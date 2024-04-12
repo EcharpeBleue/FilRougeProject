@@ -46,9 +46,6 @@ Class Personnage {
         $this->_evenements[]=$evenement;
     }
 
-    
-
-
 
     public static function update(Personnage $personnage)
 {
