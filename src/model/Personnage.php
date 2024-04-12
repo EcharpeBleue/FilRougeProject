@@ -46,8 +46,20 @@ Class Personnage {
         $this->_evenements[]=$evenement;
     }
 
-  public function demander(){
-    $this->_evenements->participer();
+
+    public static function update(Personnage $personnage)
+{
+    $statement = Database::getInstance()->getConnexion()->prepare('UPDATE PERSONNAGE set niveau=:niveau, equipement=:equipement WHERE id =:id');
+    $statement->execute(['niveau'=>$personnage->getNiveau(), 'equipement'=>$personnage->getEquipement(),'id'=>$personnage->getId()]);
+}
+public static function delete(Personnage $personnage)
+{
+    $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM PERSONNAGE WHERE id =:id');
+    $statement->execute(['id'=>$personnage->getId()]);
+} 
+    
+  public function demander(Evenement $evenement){ 
+    $this->_evenements[] = $evenement;
   }
 
 }
