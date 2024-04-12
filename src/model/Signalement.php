@@ -78,7 +78,7 @@ class Signalement{
     public static function update(Signalement $signalement)
     {
         $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMET set intitule=:intitule, Sdate:date, idUtilisateur =:idUtilisateur WHERE id =:id');
-        $statement->execute(['text'=>$signalement->getIntitule(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
+        $statement->execute(['intitule'=>$signalement->getIntitule(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
     }
     public static function delete(Signalement $signalement)
     {
