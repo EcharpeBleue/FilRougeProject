@@ -58,10 +58,10 @@ class Signalement{
        
     // }
    
-    public static function create (Signalement $intitule,Signalement $date,Utilisateur $utilisateur,TypeSignalement $typeSignalement):int
+    public static function create (Signalement $intitule,Signalement $date,Utilisateur $utilisateur,TypeSignalement $typeSignalement)
     {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,date,id_2,id_3) values (:intitule,:date,:id_2:id_3);");
-        $statement->execute(['intitule'=>$intitule->getIntitule(),'date'=>$date->getDateSignalement(),'id_2'=>$utilisateur->getId(), ]);
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
+        $statement->execute(['intitule'=>$intitule->getIntitule(),'Sdate'=>$date->getDateSignalement(),'idUtilisateur'=>$utilisateur->getId(),'idTypeSignalement'=>$utilisateur->getId(), ]);
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
     public static function read(Signalement $id):?Signalement{
@@ -77,8 +77,8 @@ class Signalement{
     }
     public static function update(Signalement $signalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMET set intitule=:intitule, id_2 =:id_2 WHERE id =:id');
-        $statement->execute(['text'=>$signalement->getIntitule(),'id_2'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMET set intitule=:intitule, Sdate:date, idUtilisateur =:idUtilisateur WHERE id =:id');
+        $statement->execute(['text'=>$signalement->getIntitule(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
     }
     public static function delete(Signalement $signalement)
     {
