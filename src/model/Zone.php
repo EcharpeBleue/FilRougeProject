@@ -50,42 +50,39 @@ class Zone
 
 
      
-    public static function create (Signalement $signalement)
+    public static function create (Zone $zone)
     {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
-        $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'idTypeSignalement'=>$signalement->getType(), ]);
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO ZONE (intitule,rang,typeZone) values (:intitule,:rang,:idTypeZone);");
+        $statement->execute(['intitule'=>$zone->getIntitule(),'rang'=>$zone->getRang(),'typeZone'=>$zone->getTypeZone()]);
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
 
 
-    public static function createPlus (Signalement $signalement,TypeSignalement $typeSignalement)
-    {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
-        $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateurs(),'idTypeSignalement'=>$signalement->getType(), ]);
-        return (int)Database::getInstance()->getConnexion()->lastInsertId();
-    }
+   
 
-
-    public static function read(Signalement $id):?Signalement{
+    public static function read(Zone $id):?Zone{
         $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
         $statement->execute(['id'=>$id]);
-        // if ($row = $statement->fetch())
-        // {
-        //     // $signalement = new Signalement(id:$row['id'],intitule:$row['intitule']);
-        //     $signalement->setUtilisateur(Utilisateur::read($row['id_2']));
-        //     return $signalement;
-        // }
+        if ($row = $statement->fetch())
+        {
+             $zone = new Signalement(id:$row['id'],intitule:$row['intitule'],rang:$row['rang']);
+            $zone->setType(TypeZone::read($row['idTypeZone']));
+            return $zone;
+        }
         return null;
     }
-    public static function update(Signalement $signalement)
+  
+    
+    public static function update(Zone $zone)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMENT set intitule=:intitule, Sdate:date, idUtilisateur =:idUtilisateur WHERE id =:id');
-        $statement->execute(['intitule'=>$signalement->getIntitule(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
+        $statement = Database::getInstance()->getConnexion()->prepare
+        ('UPDATE SIGNALEMENT set intitule=:intitule, rang=:rang, idUtilisateur =:idUtilisateur WHERE id =:id');
+        $statement->execute(['intitule'=>$zone->getIntitule(),'rang'=>$zone->getRang(),'typeZone'=>$zone->getTypeZone(),'id'=>$zone->getId()]);
     }
-    public static function delete(Signalement $signalement)
+    public static function delete(Zone $zone)
     {
         $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM SIGNALEMENT WHERE id =:id');
-        $statement->execute(['id'=>$signalement->getId()]);
+        $statement->execute(['id'=>$zone->getId()]);
     }
 
    
