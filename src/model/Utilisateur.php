@@ -9,6 +9,7 @@ class Utilisateur{
     private string $_pseudo;
     private string $_mail;
     private string $_motDePasse;
+    private Rang $_rang;
     // organiser
     private EvenementCollection $_evenements;
     // liste des dénonciations faites par l'utiisateur - la balance
@@ -43,7 +44,10 @@ class Utilisateur{
     {
         return $this->_motDePasse;
     }
-
+    public function getRang():Rang
+    {
+        return $this->_rang;
+    }
     public function getEvenements():EvenementCollection
     {
         return $this->_evenements;
@@ -57,5 +61,30 @@ class Utilisateur{
         return $this->_denonces;
     }
    
+
+    public function creerUtilisateur(Utilisateur $utilisateur):int
+    {
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `UTILISATEUR` (pseudoListeBlanche,mail, motDePasse, idRang) values (:setPseudoListeBlanche, :setMail, :setMotDePasse, :idRang);");
+        $statement->execute(['setPseudoListeBlanche'=>$utilisateur->getPseudo(), 'setMail'=>$utilisateur->getMail(), 'setMotDePasse'=>$utilisateur->getMotDePasse(), 'idRang'=>$utilisateur->getRang()]);
+        $id = (int)Database::getInstance()->getConnexion()->lastInsertId();
+        return $id;
+    }
+
+    public static function lireUtilisateur(int $id)
+    {
+            $statement=Database::getInstance()->getConnexion()->prepare('select * from `UTILISATEUR` WHERE id =:id;');
+            $statement->execute(['id'=>$id]);
+            
+    }
+    public static function updateUtilisateur (Utilisateur $utilisateur)
+    {
+            $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `UTILISATEUR` set  pseudoListeBlanche=:pseudo,mail=:mail, motDePasse=:motDePasse, idRang=:idRang WHERE id=:id;');
+            $statement->execute(['pseudo'=>$utilisateur->getPseudo(),'mail'=>$utilisateur->getMail(), 'motDePasse'=>$utilisateur->getMotDePasse(), 'id'=>$utilisateur->getId()]);
+    }
+    public static function deleteUtilisateur(Utilisateur $utilisateur)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `UTILISATEUR` WHERE id=:id');
+        $statement->execute(['id'=>$utilisateur->getId()]);
+    }
     }
    

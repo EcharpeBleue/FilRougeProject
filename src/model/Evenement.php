@@ -69,8 +69,8 @@ class Evenement
     // }
     public static function creerEvenement (Evenement $evenement):int
     {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `EVENEMENT` (Edate,intitule,idUtilisateur) values (:setDate,:setTexte,:numUtilisateur);");
-        $statement->execute(['setDate'=>$evenement->getDate(),'setTexte'=>$evenement->getTitre() . $evenement->getDescription(),'numUtilisateur'=>$evenement->getOrganisateur()->getId()]);
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `EVENEMENT` (Edate,Etitre,Eintitule,idUtilisateur) values (:setDate,:setTitre,:setIntitule,:numUtilisateur);");
+        $statement->execute(['setDate'=>$evenement->getDate(),'setTexte'=>$evenement->getTitre(), 'setIntitule'=>$evenement->getDescription(),'numUtilisateur'=>$evenement->getOrganisateur()->getId()]);
         $id = (int)Database::getInstance()->getConnexion()->lastInsertId();
 
         if ($evenement->getPrerequis()!=null)
@@ -94,7 +94,12 @@ class Evenement
     }
     public static function updateEvenement (Evenement $evenement)
     {
-            $statement = Database::getInstance()->getConnexion()->prepare('UPDATE EVENEMENT set Edate=:Edate, intitule=:intitule  WHERE id =:id');
-            $statement->execute(['text'=>$evenement->getTitre(),'numQuiz'=>$evenement->getQuiz()->getId(),'id'=>$evenement->getId()]);
+            $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `EVENEMENT` set Edate=:Edate, Etitre=:Etitre, Eintitule=:Eintitule WHERE id =:id;');
+            $statement->execute(['Edate'=>$evenement->getDate(),'Etitre'=>$evenement->getTitre(), 'Eintitule'=>$evenement->getDescription(), 'id'=>$evenement->getId()]);
+    }
+    public static function deleteEvenement(Evenement $evenement)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `EVENEMENT` WHERE id =:id');
+        $statement->execute(['id'=>$evenement->getId()]);
     }
 }

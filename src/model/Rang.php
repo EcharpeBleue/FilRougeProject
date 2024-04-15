@@ -48,4 +48,11 @@ class Rang{
         $this->_description= $description;
     }
 
+    public function creerRang(Rang $rang):int
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare("INSERT INTO `RANG` (intitule,rang) values (:setIntitule, :setRang);");
+        $statement->execute(['setIntitule'=>$rang->getIntitule(), 'setRang'=>$rang->getDescription()]);
+        $id = (int)Database::getInstance()->getConnexion()->lastInsertId();
+        return $id;
+    }
 }
