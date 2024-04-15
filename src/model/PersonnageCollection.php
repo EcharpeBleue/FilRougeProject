@@ -9,4 +9,15 @@ class PersonnageCollection extends \ArrayObject {
         }
         parent::offsetSet($index, $newval);
     }
+//     public static function getParticipantsEvenement(int $numEvenement):PersonnageCollection
+//     {
+//         $liste = new PersonnageCollection();
+        
+// // $liste[]=$personnage;
+
+//     }
+//     public static function getPersonnageFromUtilitisateur(int $numUtilisateur):PersonnageCollection
+//     {
+
+//     }
 }
