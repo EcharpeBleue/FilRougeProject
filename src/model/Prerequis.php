@@ -45,4 +45,33 @@ class Prerequis
     {
         return $this->_niveauMax;
     }
+
+
+    
+    public static function update(Prerequis $niveauMin)
+{
+    $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `PREREQUIS` set equipement=:equipement, niveauMin=:niveaumin, niveauMax=:niveauMax WHERE id =:id');
+    $statement->execute(['equipement'=>$personnage->getEquipement() ,'niveauMin'=>$niveauMin->getNiveauMin(),'niveauMax'=>$personnage->getNiveauMax()]);
+}
+
+  public static function read(int $id): ?Prerequis
+  {
+      $statement = Database::getInstance()->getConnexion()->prepare('SELECT * FROM `PREREQUIS` WHERE id = :id');
+      $statement->execute(['id' => $id]);
+  
+      if ($row = $statement->fetch()) {
+          $prerequis = new Prerequis(id: $row['id']);
+          return $prerequis;
+      }
+  
+      return null;
+  }
+  
+  public static function create (Evenement $evenement,Prerequis $prerequis)
+  {
+      $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `PREREQUIS` (id,equipement,niveauMin,niveauMax) values (:id,:equipement,:niveauMin,:niveauMax);");
+      $statement->execute(['id'=>$Prerequis->getId(),'niveauMin'=>$Prerequis->getNiveauMin(),'equipement'=>$Prerequis->getEquipement(),'niveauMax'=>$Prerequis->getNiveauMax()]);
+      return Database::getInstance()->getConnexion()->lastInsertId();
+  }
+
 }

@@ -57,5 +57,7 @@ class Utilisateur{
         return $this->_denonces;
     }
    
+  
+
     }
    

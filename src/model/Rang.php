@@ -48,4 +48,18 @@ class Rang{
         $this->_description= $description;
     }
 
+
+
+    public static function read(int $id): ?Rang
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('SELECT * FROM `RANG` WHERE id = :id');
+        $statement->execute(['id' => $id]);
+    
+        if ($row = $statement->fetch()) {
+            $rang = new Rang(id: $row['id']);
+            return $rang;
+        }
+    
+        return null;
+    }
 }
