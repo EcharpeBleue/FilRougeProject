@@ -72,7 +72,7 @@ Class Personnage {
       $statement->execute(['id' => $id]);
   
       if ($row = $statement->fetch()) {
-          $personnage = new Personnage(id: $row['id']); 
+          $personnage = new Personnage(id: $row['id'] ); 
           return $personnage;
       }
   
