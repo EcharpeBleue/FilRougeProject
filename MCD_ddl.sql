@@ -18,7 +18,8 @@ CREATE TABLE `EVENEMENT` (
   PRIMARY KEY (id),
   id       int NOT NULL auto_increment,
   Edate     DATE,
-  intitule VARCHAR(42) NULL,
+  Etitre VARCHAR(42) NULL,
+  Eintitule VARCHAR(200) NULL,
   idUtilisateur     INT NULL,
   idPrerequis     INT NOT NULL,
   idZone   INT NOT NULL
