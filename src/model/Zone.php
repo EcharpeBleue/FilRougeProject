@@ -45,4 +45,48 @@ class Zone
     {
         $this->_typeZone = $typeZone;
     }
+
+
+
+
+     
+    public static function create (Signalement $signalement)
+    {
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
+        $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'idTypeSignalement'=>$signalement->getType(), ]);
+        return (int)Database::getInstance()->getConnexion()->lastInsertId();
+    }
+
+
+    public static function createPlus (Signalement $signalement,TypeSignalement $typeSignalement)
+    {
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
+        $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateurs(),'idTypeSignalement'=>$signalement->getType(), ]);
+        return (int)Database::getInstance()->getConnexion()->lastInsertId();
+    }
+
+
+    public static function read(Signalement $id):?Signalement{
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
+        $statement->execute(['id'=>$id]);
+        // if ($row = $statement->fetch())
+        // {
+        //     // $signalement = new Signalement(id:$row['id'],intitule:$row['intitule']);
+        //     $signalement->setUtilisateur(Utilisateur::read($row['id_2']));
+        //     return $signalement;
+        // }
+        return null;
+    }
+    public static function update(Signalement $signalement)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMENT set intitule=:intitule, Sdate:date, idUtilisateur =:idUtilisateur WHERE id =:id');
+        $statement->execute(['intitule'=>$signalement->getIntitule(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
+    }
+    public static function delete(Signalement $signalement)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM SIGNALEMENT WHERE id =:id');
+        $statement->execute(['id'=>$signalement->getId()]);
+    }
+
+   
 }
