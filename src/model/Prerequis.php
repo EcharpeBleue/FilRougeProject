@@ -45,4 +45,11 @@ class Prerequis
     {
         return $this->_niveauMax;
     }
+
+    public static function delete(Prerequis $id)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM PREREQUIS WHERE id =:id');
+        $statement->execute(['id'=>$id->getId()]);
+    }
+
 }
