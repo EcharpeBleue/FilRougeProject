@@ -66,10 +66,14 @@ class Utilisateur{
         return $id;
     }
 
-    public static function lireUtilisateur(int $id)
+    public static function lireUtilisateur(int $id):?Utilisateur
     {
             $statement=Database::getInstance()->getConnexion()->prepare('select * from `UTILISATEUR` WHERE id =:id;');
             $statement->execute(['id'=>$id]);
+            if ($row = $statement->fetch()) {
+                return new Utilisateur($row['id'],$row['pseudoListeBlanche'],$row['mail'],$row['motDePasse'],$row['idRang']);
+            }
+            return null;
             
     }
     public static function updateUtilisateur (Utilisateur $utilisateur)
@@ -81,6 +85,7 @@ class Utilisateur{
     {
         $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `UTILISATEUR` WHERE id=:id');
         $statement->execute(['id'=>$utilisateur->getId()]);
+        
     }
     }
    

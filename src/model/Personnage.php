@@ -72,12 +72,9 @@ Class Personnage {
       $statement->execute(['id' => $id]);
   
       if ($row = $statement->fetch()) {
-<<<<<<< HEAD
-          $personnage = new Personnage(id: $row['id'] ); 
-=======
-        $utilisateur = Utilisateur::read( $row['idUtilisateur']);
+        $utilisateur = Utilisateur::lireUtilisateur( $row['idUtilisateur']);
           $personnage = new Personnage(id: $row['id'], niveau: $row['niveau'], equipement: $row['equipement'],utilisateur:$utilisateur); 
->>>>>>> f583c2e23258b1125f03cde95080e2a7026b843f
+
           return $personnage;
       }
   
