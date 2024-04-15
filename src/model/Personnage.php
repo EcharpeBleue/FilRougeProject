@@ -79,13 +79,16 @@ Class Personnage {
       return null;
   }
   
-  public static function create (Utilisateur $getId,Personnage $personnage)
-  {
-      $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `PERSONNAGE` (id,niveau,equipement,idUtilisateur) values (:id,:niveau,:equipement,:idUtilisateur);");
-     
-      $statement->execute(['id'=>$personnage->getId(),'niveau'=>$personnage->getNiveau(),'equipement'=>$personnage->getEquipement(),'idUtilisateur'=>$personnage->Utilisateur::getID()]);
-      return Database::getInstance()->getConnexion()->lastInsertId();
-  }
+  public static function create(Utilisateur $utilisateur, Personnage $personnage) {
+    $conn = Database::getInstance()->getConnexion();
+    $statement = $conn->prepare("INSERT INTO `PERSONNAGE` (niveau, equipement, idUtilisateur) VALUES (:niveau, :equipement, :idUtilisateur)");
+    
+    $statement->execute(['niveau' => $personnage->getNiveau(),'equipement' => $personnage->getEquipement(),'idUtilisateur' => $utilisateur->getId()
+    ]);
+
+    return $conn->lastInsertId();
+}
+
 
   
  
