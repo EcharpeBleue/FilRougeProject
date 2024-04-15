@@ -49,17 +49,50 @@ Class Personnage {
 
     public static function update(Personnage $personnage)
 {
-    $statement = Database::getInstance()->getConnexion()->prepare('UPDATE PERSONNAGE set niveau=:niveau, equipement=:equipement WHERE id =:id');
+    $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `PERSONNAGE` set niveau=:niveau, equipement=:equipement WHERE id =:id');
     $statement->execute(['niveau'=>$personnage->getNiveau(), 'equipement'=>$personnage->getEquipement(),'id'=>$personnage->getId()]);
 }
-public static function delete(Personnage $personnage)
+
+    public static function delete(Personnage $personnage)
 {
-    $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM PERSONNAGE WHERE id =:id');
+    $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `PERSONNAGE` WHERE id =:id');
     $statement->execute(['id'=>$personnage->getId()]);
 } 
     
-  public function demander(Evenement $evenement){ 
+    public function demander(Evenement $evenement){ 
     $this->_evenements[] = $evenement;
   }
 
+
+
+
+  public static function read(int $id): ?Personnage
+  {
+      $statement = Database::getInstance()->getConnexion()->prepare('SELECT * FROM `PERSONNAGE` WHERE id = :id');
+      $statement->execute(['id' => $id]);
+  
+      if ($row = $statement->fetch()) {
+          $personnage = new Personnage(id: $row['id']); 
+          return $personnage;
+      }
+  
+      return null;
+  }
+  
+  public static function create(Utilisateur $utilisateur, Personnage $personnage) {
+    $conn = Database::getInstance()->getConnexion();
+    $statement = $conn->prepare("INSERT INTO `PERSONNAGE` (niveau, equipement, idUtilisateur) VALUES (:niveau, :equipement, :idUtilisateur)");
+    
+    $statement->execute(['niveau' => $personnage->getNiveau(),'equipement' => $personnage->getEquipement(),'idUtilisateur' => $utilisateur->getId()
+    ]);
+
+    return $conn->lastInsertId();
 }
+
+
+  
+ 
+}
+
+
+
