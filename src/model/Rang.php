@@ -47,9 +47,6 @@ class Rang{
     {
         $this->_description= $description;
     }
-
-
-
     public static function read(int $id): ?Rang
     {
         $statement = Database::getInstance()->getConnexion()->prepare('SELECT * FROM `RANG` WHERE id = :id');
@@ -59,7 +56,14 @@ class Rang{
             $rang = new Rang(id: $row['id']);
             return $rang;
         }
-    
-        return null;
+
+    }
+    public function creerRang(Rang $rang):int
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare("INSERT INTO `RANG` (intitule,rang) values (:setIntitule, :setRang);");
+        $statement->execute(['setIntitule'=>$rang->getIntitule(), 'setRang'=>$rang->getDescription()]);
+        $id = (int)Database::getInstance()->getConnexion()->lastInsertId();
+        return $id;
+
     }
 }
