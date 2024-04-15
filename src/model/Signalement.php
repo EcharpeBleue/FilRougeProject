@@ -10,12 +10,14 @@ class Signalement{
     private DateTime $_dateSignalement;
     private UtilisateurCollection $_utilisateurs;
     private Utilisateur $_utilisateur;
-    public function __construct(int $id = 0, string $intitule = 'Aucun commentaire de signalement', DateTime $dateSignalement =  new DateTime('now'), Utilisateur $utilisateur, UtilisateurCollection $utilisateurs = new UtilisateurCollection()) {
+    private TypeSignalement $_typeSignalement;
+    public function __construct(int $id = 0, string $intitule = 'Aucun commentaire de signalement', DateTime $dateSignalement =  new DateTime('now'), Utilisateur $utilisateur, UtilisateurCollection $utilisateurs = new UtilisateurCollection(), TypeSignalement $typeSignalement = new TypeSignalement(1, 'harcellement')) {
         $this->_id= $id;
         $this->_intitule = $intitule;
         $this->_dateSignalement = $dateSignalement;
         $this->_utilisateur = $utilisateur;
-        $this->_utilisateurs;   
+        $this->_utilisateurs;
+        $this->_typeSignalement = $typeSignalement;   
     }
     public function getIntitule():string
     {
@@ -32,6 +34,16 @@ class Signalement{
     public function getDateSignalement():DateTime
     {
         return $this->_dateSignalement;
+    }
+
+    public function getType():TypeSignalement
+    {
+        return $this->_typeSignalement;
+    }
+
+    public function setType(TypeSignalement $typeSignalement)
+    {
+        $this->_typeSignalement[]= $typeSignalement;
     }
     public function setUtilisateur(Utilisateur $utilisateur)
     {
@@ -58,12 +70,22 @@ class Signalement{
        
     // }
    
-    public static function create (Signalement $intitule,Signalement $date,Utilisateur $utilisateur,TypeSignalement $typeSignalement)
+    public static function create (Signalement $signalement)
     {
         $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
-        $statement->execute(['intitule'=>$intitule->getIntitule(),'Sdate'=>$date->getDateSignalement(),'idUtilisateur'=>$utilisateur->getId(),'idTypeSignalement'=>$utilisateur->getId(), ]);
+        $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'idTypeSignalement'=>$signalement->getType(), ]);
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
+
+
+    public static function createPlus (Signalement $signalement,TypeSignalement $typeSignalement)
+    {
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
+        $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateurs(),'idTypeSignalement'=>$signalement->getType(), ]);
+        return (int)Database::getInstance()->getConnexion()->lastInsertId();
+    }
+
+
     public static function read(Signalement $id):?Signalement{
         $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
         $statement->execute(['id'=>$id]);
@@ -77,7 +99,7 @@ class Signalement{
     }
     public static function update(Signalement $signalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMET set intitule=:intitule, Sdate:date, idUtilisateur =:idUtilisateur WHERE id =:id');
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMENT set intitule=:intitule, Sdate:date, idUtilisateur =:idUtilisateur WHERE id =:id');
         $statement->execute(['intitule'=>$signalement->getIntitule(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
     }
     public static function delete(Signalement $signalement)

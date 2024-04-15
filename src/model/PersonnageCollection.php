@@ -18,11 +18,22 @@ class PersonnageCollection extends \ArrayObject {
 
     
     public function add(Personnage $personnage): void {
-        $this->listes[] = $personnage;
+        $this->_listes[] = $personnage;
     }
 
     public function getParticipationEvenement(){
 
     }
 
+//     public static function getParticipantsEvenement(int $numEvenement):PersonnageCollection
+//     {
+//         $liste = new PersonnageCollection();
+        
+// // $liste[]=$personnage;
+
+//     }
+//     public static function getPersonnageFromUtilitisateur(int $numUtilisateur):PersonnageCollection
+//     {
+
+//     }
 }
