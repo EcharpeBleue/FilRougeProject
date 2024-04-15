@@ -8,7 +8,7 @@ Class Personnage {
     private string $_equipement;
     private Utilisateur $_utilisateur;
 
-    public function __construct(int $id =0 ,EvenementCollection $evenements = new EvenementCollection(),int $niveau, string $equipement, Utilisateur $utilisateur){
+    public function __construct(int $niveau, string $equipement, Utilisateur $utilisateur,int $id =0 ,EvenementCollection $evenements = new EvenementCollection(),){
         $this->_niveau = $niveau;
         $this->_equipement = $equipement;
         $this->_id = $id;
@@ -72,7 +72,8 @@ Class Personnage {
       $statement->execute(['id' => $id]);
   
       if ($row = $statement->fetch()) {
-          $personnage = new Personnage(id: $row['id']); 
+        $utilisateur = Utilisateur::read( $row['idUtilisateur']);
+          $personnage = new Personnage(id: $row['id'], niveau: $row['niveau'], equipement: $row['equipement'],utilisateur:$utilisateur); 
           return $personnage;
       }
   
