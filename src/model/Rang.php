@@ -15,6 +15,12 @@ class Rang{
         $this->_evenements = $evenements;
         
     }
+
+    public function getId():int
+    {
+        return $this->_id;
+    }
+
     public function getUtilisateurs():UtilisateurCollection
     {
         return $this->_utilisateurs;
@@ -47,5 +53,9 @@ class Rang{
     {
         $this->_description= $description;
     }
-
+    public static function delete(Rang $id)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM Rang WHERE id =:id');
+        $statement->execute(['id'=>$id->getId()]);
+    }
 }
