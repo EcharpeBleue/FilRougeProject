@@ -4,17 +4,23 @@ namespace app\guild\model;
 class Rang{
     private int $_id;
     private string $_intitule;
-    private string $_description;
+    private string $_rang;
     private UtilisateurCollection $_utilisateurs;
     private EvenementCollection $_evenements;
-    public function __construct(int $id = 0, string $description = 'Nouveau Membre', string $intitule = 'noob', UtilisateurCollection $utilisateurs = new UtilisateurCollection(), EvenementCollection $evenements = new EvenementCollection()) {
+    public function __construct(int $id = 0, string $rang = 'Nouveau Membre', string $intitule = 'noob', UtilisateurCollection $utilisateurs = new UtilisateurCollection(), EvenementCollection $evenements = new EvenementCollection()) {
         $this->_id= $id;
         $this->_intitule = $intitule;
-        $this->_description = $description;  
+        $this->_rang = $rang;  
         $this->_utilisateurs = $utilisateurs;
         $this->_evenements = $evenements;
         
     }
+
+    public function getId():int
+    {
+        return $this->_id;
+    }
+
     public function getUtilisateurs():UtilisateurCollection
     {
         return $this->_utilisateurs;
@@ -39,13 +45,18 @@ class Rang{
     {
         $this->_intitule= $intitule;
     }
-    public function getDescription():string
+    public function getRang():string
     {
-        return $this->_description;
+        return $this->_rang;
     }
-    public function setDescription(string $description)
+    public function setRang(string $rang)
     {
-        $this->_description= $description;
+        $this->_rang= $rang;
+    }
+    public static function delete(Rang $id)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM Rang WHERE id =:id');
+        $statement->execute(['id'=>$id->getId()]);
     }
     public static function read(int $id): ?Rang
     {
@@ -61,9 +72,14 @@ class Rang{
     public function creerRang(Rang $rang):int
     {
         $statement = Database::getInstance()->getConnexion()->prepare("INSERT INTO `RANG` (intitule,rang) values (:setIntitule, :setRang);");
-        $statement->execute(['setIntitule'=>$rang->getIntitule(), 'setRang'=>$rang->getDescription()]);
+        $statement->execute(['setIntitule'=>$rang->getIntitule(), 'setRang'=>$rang->getIntitule()]);
         $id = (int)Database::getInstance()->getConnexion()->lastInsertId();
         return $id;
-
+    }
+    public static function update(Rang $rang)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare
+        ('UPDATE RANG set intitule=:intitule, rang=:rang WHERE id =:id');
+        $statement->execute(['intitule'=>$rang->getIntitule(),'rang'=>$rang->getRang(),'id'=>$rang->getId()]);
     }
 }

@@ -8,7 +8,6 @@ class Prerequis
     // ^^ probablement remplacer le type par Equipement, peut être implémenter la classe
     private int $_niveauMin;
     private int $_niveauMax;
-
     public function __construct(int $id, string $equipement, int $niveauMin, int $niveauMax)
     {
         $this->_id = $id;
@@ -48,10 +47,10 @@ class Prerequis
 
 
     
-    public static function update(Prerequis $Prerequis)
+    public static function update(Prerequis $prerequis)
 {
     $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `PREREQUIS` set equipement=:equipement, niveauMin=:niveaumin, niveauMax=:niveauMax WHERE id =:id');
-    $statement->execute(['equipement'=>$Prerequis->getEquipement() ,'niveauMin'=>$Prerequis->getNiveauMin(),'niveauMax'=>$Prerequis->getNiveauMax()]);
+    $statement->execute(['equipement'=>$prerequis->getEquipement() ,'niveauMin'=>$prerequis->getNiveauMin(),'niveauMax'=>$prerequis->getNiveauMax()]);
 }
 
   public static function read(int $id): ?Prerequis
@@ -73,5 +72,10 @@ class Prerequis
       $statement->execute(['id'=>$prerequis->getId(),'niveauMin'=>$prerequis->getNiveauMin(),'equipement'=>$prerequis->getEquipement(),'niveauMax'=>$prerequis->getNiveauMax()]);
       return Database::getInstance()->getConnexion()->lastInsertId();
   }
+    public static function delete(Prerequis $id)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM PREREQUIS WHERE id =:id');
+        $statement->execute(['id'=>$id->getId()]);
+    }
 
 }

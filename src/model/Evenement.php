@@ -102,4 +102,14 @@ class Evenement
         $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `EVENEMENT` WHERE id =:id');
         $statement->execute(['id'=>$evenement->getId()]);
     }
+    public static function list():\ArrayObject{
+        $liste = new \ArrayObject();
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from `EVENEMENT`;');
+        $statement->execute();
+        while ($row = $statement->fetch()) {
+            $organisateur = Utilisateur::lireUtilisateur( $row['idUtilisateur']);
+            $liste[] = new Evenement(id:$row['id'],date:$row['date'], titre:$row['titre'],description:$row['intitule'], organisateur:$organisateur);
+        }
+        return $liste;
+    }
 }

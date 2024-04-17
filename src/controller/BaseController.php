@@ -4,16 +4,52 @@ declare(strict_types=1);
 
 namespace app\guild\controller;
 
-class BaseApiController {
+// class BaseApiController {
     
-    protected $_httpRequest;
-    protected $_param;
+//     protected $_httpRequest;
+//     protected $_param;
     
-    public function __construct($httpRequest) {
-        $this->_httpRequest = $httpRequest;
+//     public function __construct($httpRequest) {
+//         $this->_httpRequest = $httpRequest;
+//     }
+    
+//     protected function view($data, $param) {
+//         echo "view";
+//     }
+// }
+namespace app\guild\controller;
+use app\quizz\router\HttpRequest;
+use app\quizz\router\ViewNotFoundException;
+    abstract class BaseController
+    {
+        protected HttpRequest $_httpRequest;
+        protected $_params=[];
+        
+        public function __construct($httpRequest)
+        {
+            $this->_httpRequest = $httpRequest;
+            $this->_params=$httpRequest->getParams();
+        }
+        
+        public function view($filename)
+        {
+            $viewFile= './../templates/' . $filename . '.php';
+            if(file_exists($viewFile))
+            {
+                ob_start();
+                extract($this->_params);
+                include($viewFile);
+                $content = ob_get_clean();
+                include("./../templates/layout.php");
+            }
+            else
+            {
+                throw new ViewNotFoundException($viewFile); 
+            }
+        }
+        public function addParam($name,$value)
+        {
+            $this->_params[$name] = $value;
+        }
+    
     }
-    
-    protected function view($data, $param) {
-        echo "view";
-    }
-}
