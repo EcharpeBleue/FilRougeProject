@@ -5,7 +5,7 @@ class TypeSignalement {
     private int $_id;
     private string $_intitule;
 
-    public function __construct(int $id=0,string $intitule){
+    public function __construct(int $id,string $intitule){
         $this->_intitule = $intitule;
         $this->_id = $id;
     }
@@ -29,13 +29,13 @@ class TypeSignalement {
     }
 
 
-    public static function read(TypeSignalement $id):?TypeSignalement{
-        $statement=Database::getInstance()->getConnexion()->prepare('select * from TYPE_SIGNALEMENT where id =:id;');
+    public static function read(int $id):?TypeSignalement{
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from TYPE_SIGNALEMENT where id =:id');
         $statement->execute(['id'=>$id]);
         if ($row = $statement->fetch())
         {
-             $typeSignalement = new Signalement(id:$row['id'],intitule:$row['intitule'],Sdate:$row['Sdate'],utilisateur:$row['idUtilisateur']);
-            $typeSignalement->setType(TypeSignalement::read($row['idTypeSignalement']));
+             $typeSignalement = new TypeSignalement(id:$row['id'],intitule:$row['intitule']);
+            
             return $typeSignalement;
         }
         return null;
