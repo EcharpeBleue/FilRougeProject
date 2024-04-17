@@ -4,7 +4,9 @@
     "description": "guildFileRouge",
     "autoload": {
         "psr-4": {
-            "app\\guild\\model\\": "src/model"
+            "app\\guild\\model\\": "src/model",
+            "app\\guild\\router\\": "src/router",
+            "app\\guild\\controller\\": "src/controller"
         }
     },
     "authors": [

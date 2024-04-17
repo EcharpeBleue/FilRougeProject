@@ -58,7 +58,7 @@ class Utilisateur{
     {
         return $this->_denonces;
     }
-    public function creerUtilisateur(Utilisateur $utilisateur):int
+    public static function creerUtilisateur(Utilisateur $utilisateur):int
     {
         $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `UTILISATEUR` (pseudoListeBlanche,mail, motDePasse, idRang) values (:setPseudoListeBlanche, :setMail, :setMotDePasse, :idRang);");
         $statement->execute(['setPseudoListeBlanche'=>$utilisateur->getPseudo(), 'setMail'=>$utilisateur->getMail(), 'setMotDePasse'=>$utilisateur->getMotDePasse(), 'idRang'=>$utilisateur->getRang()]);

@@ -33,4 +33,39 @@ class TypeZone
     {
          $this->_zones[]= $zone;
     }
+
+   
+    public static function create(ZoneCollection $zone ,TypeZone $typeZone)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare("INSERT INTO `TYPE_ZONE` (id, intitule, zone) VALUES (:id, :intitule, :zone);");
+        $statement->execute(['id' => $typeZone->getId(),'intitule'=>$typeZone->getIntitule(),"zone"=>$typeZone->getZones()]);
+        return (int)Database::getInstance()->getConnexion()->lastInsertId();
+    }
+    
+    public static function read(int $id): ?TypeZone
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('SELECT * FROM `TYPE_ZONE` WHERE id = :id;');
+        $statement->execute(['id' => $id]);
+
+        if ($row = $statement->fetch()) {
+        
+            return new TypeZone(id: $row['id'], intitule: $row['intitule'], zone: $row['zone']);
+        }
+        return null;
+    }
+    
+    public static function update(TypeZone $typeZone)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `TYPE_ZONE` SET id = :id, intitule = :intitule, zone = :zone WHERE id = :id');
+        $statement->execute(['id' => $typeZone->getId(), 'intitule' => $typeZone->getIntitule(), "zone"=>$typeZone->getZones()]);
+    }
+    
+    public static function delete(TypeZone $typeZone)
+    {
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `TYPE_ZONE` WHERE id = :id');
+        $statement->execute(['id' => $typeZone->getId()]);
+    }
+    
+
+
 }

@@ -57,15 +57,6 @@ class Zone
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
 
-
-    public static function createPlus (Signalement $signalement,TypeSignalement $typeSignalement)
-    {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur:idTypeSignalement);");
-        $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateurs(),'idTypeSignalement'=>$signalement->getType(), ]);
-        return (int)Database::getInstance()->getConnexion()->lastInsertId();
-    }
-
-
     public static function read(Signalement $id):?Signalement{
         $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
         $statement->execute(['id'=>$id]);

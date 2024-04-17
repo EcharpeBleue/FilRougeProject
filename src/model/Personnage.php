@@ -91,8 +91,32 @@ Class Personnage {
     return $conn->lastInsertId();
 }
 
+public static function list():\ArrayObject{
+    $liste = new \ArrayObject();
+    $statement=Database::getInstance()->getConnexion()->prepare('select * from `PERSONNAGE`;');
+    $statement->execute();
+    while ($row = $statement->fetch()) {
+        $liste[] = new Personnage(id: $row['id'], niveau: $row['niveau'], equipement: $row['equipement'],utilisateur:$row['utilisateur']);
+    }
+    return $liste;
+}
 
-  
+public static function loadFromJson($data)
+{
+    foreach ($data as $row) {
+        $utilisateur = Utilisateur::lireUtilisateur($row['utilisateur']); // Assuming Utilisateur::read method exists
+        $personnage = new Personnage(
+            id: $row['id'],
+            niveau: $row['niveau'],
+            equipement: $row['equipement'],
+            utilisateur: $utilisateur
+        );
+        Personnage::create($utilisateur, $personnage);
+    }
+}
+
+
+
  
 }
 
