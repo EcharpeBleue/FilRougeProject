@@ -3,23 +3,8 @@
 declare(strict_types=1);
 
 namespace app\guild\controller;
-
-// class BaseApiController {
-    
-//     protected $_httpRequest;
-//     protected $_param;
-    
-//     public function __construct($httpRequest) {
-//         $this->_httpRequest = $httpRequest;
-//     }
-    
-//     protected function view($data, $param) {
-//         echo "view";
-//     }
-// }
-namespace app\guild\controller;
-use app\quizz\router\HttpRequest;
-use app\quizz\router\ViewNotFoundException;
+use app\guild\router\HttpRequest;
+use app\guild\router\ViewNotFoundException;
     abstract class BaseController
     {
         protected HttpRequest $_httpRequest;

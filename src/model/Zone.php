@@ -47,13 +47,9 @@ class Zone
         $this->_typeZone = $typeZone;
     }
 
-
-
-
-     
     public static function create (Zone $zone)
     {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO ZONE (intitule,rang,typeZone) values (:intitule,:rang,:idTypeZone);");
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `ZONE` (intitule,rang,typeZone) values (:intitule,:rang,:idTypeZone);");
         $statement->execute(['intitule'=>$zone->getIntitule(),'rang'=>$zone->getRang(),'typeZone'=>$zone->getTypeZone()]);
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
@@ -62,7 +58,7 @@ class Zone
    
 
     public static function read(Zone $id):?Zone{
-        $statement=Database::getInstance()->getConnexion()->prepare('select * from ZONE where id =:id;');
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from `ZONE` where id =:id;');
         $statement->execute(['id'=>$id]);
         if ($row = $statement->fetch())
         {
@@ -77,12 +73,12 @@ class Zone
     public static function update(Zone $zone)
     {
         $statement = Database::getInstance()->getConnexion()->prepare
-        ('UPDATE ZONE set intitule=:intitule, rang=:rang, typeZone =:typeZone WHERE id =:id');
+        ('UPDATE `ZONE` set intitule=:intitule, rang=:rang, typeZone =:typeZone WHERE id =:id');
         $statement->execute(['intitule'=>$zone->getIntitule(),'rang'=>$zone->getRang(),'typeZone'=>$zone->getTypeZone(),'id'=>$zone->getId()]);
     }
     public static function delete(Zone $zone)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM ZONE WHERE id =:id');
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `ZONE` WHERE id =:id');
         $statement->execute(['id'=>$zone->getId()]);
     }
 
