@@ -40,14 +40,14 @@ class Route
     {
         return $this->_param;
     }
-    public function run()
+    public function run($httpRequest)
     {
         $controller = null;
 
         $controllerName = $this->_controller . "Controller";
         if (class_exists($controllerName)) {
 
-            $controller = new $controllerName($httpRequest, $config);
+            $controller = new $controllerName($httpRequest);
             if (method_exists($controller, $this->_action)) {
                 $controller->{$this->_action}(...$httpRequest->getParam());
             } else {
