@@ -9,11 +9,12 @@ class Zone
     private string $_rang;
     private TypeZone $_typeZone;
 
-    public function __construct(int $id, string $intitule, string $rang)
+    public function __construct(int $id, string $intitule, string $rang, TypeZone $typeZone)
     {
         $this->_id = $id;
         $this->_intitule = $intitule;
         $this->_rang = $rang;
+        $this->_typeZone = $typeZone;
        
     }
 
@@ -62,7 +63,7 @@ class Zone
         $statement->execute(['id'=>$id]);
         if ($row = $statement->fetch())
         {
-             $zone = new Zone(id:$row['id'],intitule:$row['intitule'],rang:$row['rang']);
+             $zone = new Zone(id:$row['id'],intitule:$row['intitule'],rang:$row['rang'],typeZone:$row['typeZone']);
             $zone->setTypeZone(TypeZone::read($row['idTypeZone'])); //changement
             return $zone;
         }
@@ -81,6 +82,14 @@ class Zone
         $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `ZONE` WHERE id =:id');
         $statement->execute(['id'=>$zone->getId()]);
     }
-
+    public static function list():\ArrayObject{
+        $liste = new \ArrayObject();
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from `ZONE`;');
+        $statement->execute();
+        while ($row = $statement->fetch()) {
+            $liste[] = new Zone(id: $row['id'], intitule: $row['intitule'], rang: $row['rang'],typeZone:$row['typeZone']);
+        }
+        return $liste;
+    }
    
 }
