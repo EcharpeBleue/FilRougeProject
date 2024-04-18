@@ -26,6 +26,7 @@ namespace app\guild\router;
         {
             return $this->_method;  
         }
+        
         public function getParams():array
         {
             return $this->_params;  
@@ -38,7 +39,24 @@ namespace app\guild\router;
         public function getRoute():Route
         {
             return $this->_route;   
-        }        
+        } 
+        private function bindParamFromPost():array
+        {
+            $params = array();
+            foreach($this->_route->getParams() as $param)
+                    {
+                        if(isset($_POST[$param]))
+                            {
+                                $params[] = $_POST[$param];
+                            }
+                    }
+            return $params;
+        }
+        //path :/api/quiz | params:[0=>'id'] (provient du fichier routes.json)
+         // uri: "/api/quiz/5" (url demandé par le client)
+       // preg_mach: "#^/api/quiz/\d$#" (expression réguliere construite pour reconnaitre la route)
+        //$route: [0=>"",1=>"api",2=>"quiz"] (explode $this->_route->getPath())
+       // $url: [0=>"",1=>"api",2=>"quiz",3=>5] (explode $this->_uri))
         private function bindParamFromGet():array
         {
             $route=explode('/',$this->_route->getPath());// la route ne contient pas les parametres
@@ -48,21 +66,13 @@ namespace app\guild\router;
             $params = array();
             for ($i =0;$i<$nbParams;$i++)
             {
-                $params[$this->getRoute()->getParams()[$i]] = $valeursParams[$i];   
+                if ($this->getRoute()->getParams()[$i]->type== "integer")
+                    $params[$this->getRoute()->getParams()[$i]->name] =(int) $valeursParams[$i];   
+                else
+                $params[$this->getRoute()->getParams()[$i]->name] = $valeursParams[$i];   
+           
             }
-            return $params;
-        }
 
-        private function bindParamFromPost():array
-        {
-            $params = array();
-            foreach($this->_route->getParams() as $param)
-                    {
-                        if(isset($_POST[$param]))
-                            {
-                                $params = $_POST[$param];
-                            }
-                    }
             return $params;
         }
         public function bindParam():void
@@ -80,7 +90,7 @@ namespace app\guild\router;
                 // break;
                 // case "DELETE":
                 //     $this->_params=$this->bindParamFromDelete();
-                //     break;  
+                    // break;  
             }
         }
         public function run()
@@ -90,4 +100,5 @@ namespace app\guild\router;
             $this->_route->run($this);
         }
 
+       
     }
