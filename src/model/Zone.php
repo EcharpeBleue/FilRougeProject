@@ -62,7 +62,7 @@ class Zone
    
 
     public static function read(Zone $id):?Zone{
-        $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from ZONE where id =:id;');
         $statement->execute(['id'=>$id]);
         if ($row = $statement->fetch())
         {
@@ -77,12 +77,12 @@ class Zone
     public static function update(Zone $zone)
     {
         $statement = Database::getInstance()->getConnexion()->prepare
-        ('UPDATE SIGNALEMENT set intitule=:intitule, rang=:rang, idUtilisateur =:idUtilisateur WHERE id =:id');
+        ('UPDATE ZONE set intitule=:intitule, rang=:rang, typeZone =:typeZone WHERE id =:id');
         $statement->execute(['intitule'=>$zone->getIntitule(),'rang'=>$zone->getRang(),'typeZone'=>$zone->getTypeZone(),'id'=>$zone->getId()]);
     }
     public static function delete(Zone $zone)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM SIGNALEMENT WHERE id =:id');
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM ZONE WHERE id =:id');
         $statement->execute(['id'=>$zone->getId()]);
     }
 
