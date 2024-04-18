@@ -23,14 +23,14 @@ class TypeSignalement {
 
     public static function create (TypeSignalement $typeSignalement)
     {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO TYPE_SIGNALEMENT (intitule) values (:intitule);");
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `TYPE_SIGNALEMENT` (intitule) values (:intitule);");
         $statement->execute(['intitule'=>$typeSignalement->getIntitule()]);
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
 
 
     public static function read(int $id):?TypeSignalement{
-        $statement=Database::getInstance()->getConnexion()->prepare('select * from TYPE_SIGNALEMENT where id =:id');
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from `TYPE_SIGNALEMENT` where id =:id');
         $statement->execute(['id'=>$id]);
         if ($row = $statement->fetch())
         {
@@ -42,12 +42,12 @@ class TypeSignalement {
     }
     public static function update(TypeSignalement $typeSignalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE TYPE_SIGNALEMENT set intitule= :intitule WHERE id= :id');
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `TYPE_SIGNALEMENT` set intitule= :intitule WHERE id= :id');
         $statement->execute(['intitule'=>$typeSignalement->getIntitule(),'id'=>$typeSignalement->getId()]);
     }
     public static function delete(TypeSignalement $typeSignalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM TYPE_SIGNALEMENT WHERE id= :id');
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `TYPE_SIGNALEMENT` WHERE id= :id');
         $statement->execute(['id'=>$typeSignalement->getId()]);
     }
 

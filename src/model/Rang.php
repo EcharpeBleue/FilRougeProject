@@ -55,7 +55,7 @@ class Rang{
     }
     public static function delete(Rang $id)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM Rang WHERE id =:id');
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `RANG` WHERE id =:id');
         $statement->execute(['id'=>$id->getId()]);
     }
     public static function read(int $id): ?Rang
@@ -79,7 +79,7 @@ class Rang{
     public static function update(Rang $rang)
     {
         $statement = Database::getInstance()->getConnexion()->prepare
-        ('UPDATE RANG set intitule=:intitule, rang=:rang WHERE id =:id');
+        ('UPDATE `RANG` set intitule=:intitule, rang=:rang WHERE id =:id');
         $statement->execute(['intitule'=>$rang->getIntitule(),'rang'=>$rang->getRang(),'id'=>$rang->getId()]);
     }
 }

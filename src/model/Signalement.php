@@ -72,14 +72,14 @@ class Signalement{
    
     public static function create (Signalement $signalement)
     {
-        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO SIGNALEMENT (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur,:idTypeSignalement);");
+        $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `SIGNALEMENT` (intitule,Sdate,idUtilisateur,idTypeSignalement) values (:intitule,:Sdate,:idUtilisateur,:idTypeSignalement);");
         $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'idTypeSignalement'=>$signalement->getType(), ]);
         return (int)Database::getInstance()->getConnexion()->lastInsertId();
     }
 
 
     public static function read(Signalement $id):?Signalement{
-        $statement=Database::getInstance()->getConnexion()->prepare('select * from SIGNALEMENT where id =:id;');
+        $statement=Database::getInstance()->getConnexion()->prepare('select * from `SIGNALEMENT` where id =:id;');
         $statement->execute(['id'=>$id]);
         if ($row = $statement->fetch())
         {
@@ -91,16 +91,12 @@ class Signalement{
     }
     public static function update(Signalement $signalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE SIGNALEMENT set intitule= :intitule, Sdate= :Sdate, idUtilisateur= :idUtilisateur WHERE id= :id');
+        $statement = Database::getInstance()->getConnexion()->prepare('UPDATE `SIGNALEMENT` set intitule= :intitule, Sdate= :Sdate, idUtilisateur= :idUtilisateur WHERE id= :id');
         $statement->execute(['intitule'=>$signalement->getIntitule(),'Sdate'=>$signalement->getDateSignalement(),'idUtilisateur'=>$signalement->getUtilisateur()->getId(),'id'=>$signalement->getId()]);
     }
     public static function delete(Signalement $signalement)
     {
-        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM SIGNALEMENT WHERE id= :id');
+        $statement = Database::getInstance()->getConnexion()->prepare('DELETE FROM `SIGNALEMENT` WHERE id= :id');
         $statement->execute(['id'=>$signalement->getId()]);
     }
-
-   
-    
-
 }
