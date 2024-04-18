@@ -6,6 +6,7 @@ class Zone
     private int $_id;
     private string $_intitule;
     private string $_rang;
+    private TypeZone $_typeZone;
 
     public function __construct(int $id, string $intitule, string $rang)
     {
@@ -65,7 +66,7 @@ class Zone
         if ($row = $statement->fetch())
         {
              $zone = new Zone(id:$row['id'],intitule:$row['intitule'],rang:$row['rang']);
-            $zone->setType(TypeZone::read($row['idTypeZone'])); //changement
+            $zone->setTypeZone(TypeZone::read($row['idTypeZone'])); //changement
             return $zone;
         }
         return null;
