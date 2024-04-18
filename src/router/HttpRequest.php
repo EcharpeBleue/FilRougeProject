@@ -1,7 +1,7 @@
 <?php
 # src/router/HttpRequest.php
 declare(strict_types=1);
-namespace app\quizz\router;
+namespace app\guild\router;
     class HttpRequest
     {
         private string $_uri;

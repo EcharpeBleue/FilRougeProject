@@ -36,7 +36,7 @@ class Route
     {
         return $this->_method;
     }
-    public function getParam()
+    public function getParams()
     {
         return $this->_param;
     }
