@@ -1,0 +1,16 @@
+[
+    {
+        "path" : "/api",
+        "controller" : "Api",
+        "action" : "index",
+        "method" : "GET",
+        "params" : []
+    },
+    {
+        "path" : "/api/personnage",
+        "controller" : "Api",
+        "action" : "personnage",
+        "method" : "GET",
+        "params" : [{"name":"id","type":"integer"},{"name":"name","type":"string"}]
+    }
+]

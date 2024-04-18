@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-
+namespace app\guild\controller;
 namespace app\guild\router;
 
 class Route
@@ -40,16 +40,14 @@ class Route
     {
         return $this->_param;
     }
-    public function run()
+    public function run(HttpRequest $httpRequest)
     {
         $controller = null;
-
-        $controllerName = $this->_controller . "Controller";
+        $controllerName = "app\guild\controller\\".$this->_controller . "Controller";
         if (class_exists($controllerName)) {
-
-            $controller = new $controllerName($httpRequest, $config);
+            $controller = new $controllerName($httpRequest);
             if (method_exists($controller, $this->_action)) {
-                $controller->{$this->_action}(...$httpRequest->getParam());
+                $controller->{$this->_action}(...$httpRequest->getParams());
             } else {
                 throw new ActionNotFoundException();
             }
