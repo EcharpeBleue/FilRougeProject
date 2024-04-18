@@ -44,7 +44,7 @@ class HttpRequest
     private function bindParamFromPost():array
     {
         $params = array();
-        foreach($this->_route->getParam() as $param)
+        foreach($this->_route->getParams() as $param)
                 {
                     if(isset($_POST[$param]))
                         {
@@ -63,7 +63,7 @@ class HttpRequest
         $params = array();
         for ($i =0;$i<$nbParams;$i++)
         {
-            $params[$this->getRoute()->getParam()[$i]] = $valeursParams[$i];   
+            $params[$this->getRoute()->getParams()[$i]] = $valeursParams[$i];   
         }
         return $params;
     }

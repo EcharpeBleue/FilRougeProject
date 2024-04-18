@@ -34,6 +34,8 @@ class TypeZone
          $this->_zones[]= $zone;
     }
 
+    
+
    
     public static function create(ZoneCollection $zone ,TypeZone $typeZone)
     {

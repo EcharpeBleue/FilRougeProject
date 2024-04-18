@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 namespace app\guild\model;
+//00
 class Zone
 {
     private int $_id;
@@ -8,12 +9,12 @@ class Zone
     private string $_rang;
     private TypeZone $_typeZone;
 
-    public function __construct(int $id, string $intitule, string $rang, TypeZone $typeZone)
+    public function __construct(int $id, string $intitule, string $rang)
     {
         $this->_id = $id;
         $this->_intitule = $intitule;
         $this->_rang = $rang;
-        $this->_typeZone = $typeZone;
+       
     }
 
     public function setIntitule(string $intitule):void
@@ -65,8 +66,8 @@ class Zone
         $statement->execute(['id'=>$id]);
         if ($row = $statement->fetch())
         {
-             $zone = new Signalement(id:$row['id'],intitule:$row['intitule'],rang:$row['rang']);
-            $zone->setType(TypeZone::read($row['idTypeZone']));
+             $zone = new Zone(id:$row['id'],intitule:$row['intitule'],rang:$row['rang']);
+            $zone->setTypeZone(TypeZone::read($row['idTypeZone'])); //changement
             return $zone;
         }
         return null;
