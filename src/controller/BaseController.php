@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace app\guild\controller;
 use app\guild\router\HttpRequest;
 use app\guild\router\ViewNotFoundException;
