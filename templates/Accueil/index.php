@@ -10,11 +10,12 @@
     <title>Accueil</title>
 </head>
 <body>
-<form>
+
+<form method="POST" action="/verification">
   <div class="form-group">
     <label for="email">Votre email</label>
     <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre email avec quelqu’un d’autre.</small>
+    <small id="emailHelp" class="form-text text-muted">Nous ne partagerons jamais votre email.</small>
   </div>
   <div class="form-group">
     <label for="password">Mot de passe</label>
@@ -24,7 +25,7 @@
     <input type="checkbox" class="form-check-input" id="exampleCheck1">
     <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
   </div>
-  <button type="submit" class="btn btn-primary">Se connecter</button>
+  <button type="submit" name="connecter" class="btn btn-primary">Se connecter</button>
 </form>
 </body>
 </html>

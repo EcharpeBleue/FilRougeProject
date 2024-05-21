@@ -5,5 +5,13 @@
         "action" : "index",
         "method" : "GET",
         "params" : []
+    },
+    {
+        "path": "/verification",
+        "controller": "Accueil",
+        "action" : "verification",
+        "method" : "POST",
+        "params" : []
     }
+
 ]
