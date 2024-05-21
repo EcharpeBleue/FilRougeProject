@@ -10,6 +10,7 @@
     <title>Accueil</title>
 </head>
 <body>
+  
 <form>
   <div class="form-group">
     <label for="email">Votre email</label>

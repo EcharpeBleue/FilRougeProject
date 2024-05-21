@@ -61,7 +61,11 @@ class Utilisateur{
     public static function creerUtilisateur(Utilisateur $utilisateur):int
     {
         $statement=Database::getInstance()->getConnexion()->prepare("INSERT INTO `UTILISATEUR` (pseudoListeBlanche,mail, motDePasse, idRang) values (:setPseudoListeBlanche, :setMail, :setMotDePasse, :idRang);");
-        $statement->execute(['setPseudoListeBlanche'=>$utilisateur->getPseudo(), 'setMail'=>$utilisateur->getMail(), 'setMotDePasse'=>$utilisateur->getMotDePasse(), 'idRang'=>$utilisateur->getRang()]);
+        $statement->execute([
+            'setPseudoListeBlanche'=>$utilisateur->getPseudo(), 
+            'setMail'=>$utilisateur->getMail(), 
+            'setMotDePasse'=>$utilisateur->getMotDePasse(), 
+            'idRang'=>$utilisateur->getRang()]);
         $id = (int)Database::getInstance()->getConnexion()->lastInsertId();
         return $id;
     }
