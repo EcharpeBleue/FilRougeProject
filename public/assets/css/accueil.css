@@ -1,0 +1,16 @@
+body {
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    margin-top: 15em;
+}
+form {
+    width: 30em;
+    height: auto;
+    padding: 1em;
+    background-color: white;
+    border-radius: 20px;
+}
+form .form-group{
+    padding-top: 1em;
+}

@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace app\guild\router;
 class ControllerNotFoundException extends  \Exception
 {
-    public function __construct($message = "Controller was not found")
-        {
-            parent::__construct($message, 1);
-        }
+	public function __construct($message = "controller was not found")
+		{
+			parent::__construct($message, 1);
+		}
 }

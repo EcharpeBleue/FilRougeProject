@@ -9,4 +9,7 @@ class AccueilController extends BaseController
     {
         $this->view("Accueil/index");
     }
+
+
+    
 }
